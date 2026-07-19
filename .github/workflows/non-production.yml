@@ -26,7 +26,7 @@ jobs:
     if: github.event.head_commit.author.username != 'dependabot[bot]'
     with:
       checkout_ref: ${{ github.ref }}
-      github_environment: "Non-Production"
+      github_environment: "Non-Production: us-east1-b"
       opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-nonprod
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
@@ -41,7 +41,7 @@ jobs:
     if: github.event.head_commit.author.username != 'dependabot[bot]'
     with:
       checkout_ref: ${{ github.ref }}
-      github_environment: "Non-Production"
+      github_environment: "Non-Production: us-east4-a"
       opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-nonprod
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}

@@ -33,7 +33,7 @@ jobs:
       github.event.workflow_run.head_commit.author.name != 'dependabot[bot]')
     with:
       checkout_ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-      github_environment: "Production"
+      github_environment: "Production: us-east1-b"
       opentofu_kms_encryption_key: projects/pt-corpus-tf16-prod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-prod
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
@@ -51,7 +51,7 @@ jobs:
       github.event.workflow_run.head_commit.author.name != 'dependabot[bot]')
     with:
       checkout_ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-      github_environment: "Production"
+      github_environment: "Production: us-east4-a"
       opentofu_kms_encryption_key: projects/pt-corpus-tf16-prod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-prod
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}

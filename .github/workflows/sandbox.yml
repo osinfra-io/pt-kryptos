@@ -27,7 +27,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     with:
       checkout_ref: ${{ github.ref }}
-      github_environment: "Sandbox"
+      github_environment: "Sandbox: us-east1-b"
       opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-sb
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
@@ -42,7 +42,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     with:
       checkout_ref: ${{ github.ref }}
-      github_environment: "Sandbox"
+      github_environment: "Sandbox: us-east4-a"
       opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-sb
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}

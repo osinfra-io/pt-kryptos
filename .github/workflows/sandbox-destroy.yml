@@ -1,0 +1,42 @@
+name: Sandbox Destroy
+
+on:
+  workflow_dispatch:
+
+# For reusable workflows, the permissions setting for id-token should be set to write at the
+# caller workflow level or in the specific job that calls the reusable workflow.
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  us_east1_b:
+    name: "Regional: us-east1-b"
+    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
+    with:
+      checkout_ref: ${{ github.ref }}
+      github_environment: "Sandbox: us-east1-b"
+      opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_plan_args: -destroy
+      opentofu_state_bucket: pt-kryptos-state-sb
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
+      opentofu_workspace: us-east1-b-sandbox
+      service_account: pt-kryptos-github@pt-corpus-tfc9-sb.iam.gserviceaccount.com
+      working_directory: regional
+      workload_identity_provider: projects/190688376851/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc
+
+  us_east4_a:
+    name: "Regional: us-east4-a"
+    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
+    with:
+      checkout_ref: ${{ github.ref }}
+      github_environment: "Sandbox: us-east4-a"
+      opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_plan_args: -destroy
+      opentofu_state_bucket: pt-kryptos-state-sb
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
+      opentofu_workspace: us-east4-a-sandbox
+      service_account: pt-kryptos-github@pt-corpus-tfc9-sb.iam.gserviceaccount.com
+      working_directory: regional
+      workload_identity_provider: projects/190688376851/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc

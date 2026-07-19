@@ -29,7 +29,6 @@ jobs:
       github_environment: "Non-Production"
       opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-nonprod
-      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: us-east1-b-non-production
       service_account: pt-kryptos-github@pt-corpus-tf61-nonprod.iam.gserviceaccount.com
@@ -45,7 +44,6 @@ jobs:
       github_environment: "Non-Production"
       opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-nonprod
-      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: us-east4-a-non-production
       service_account: pt-kryptos-github@pt-corpus-tf61-nonprod.iam.gserviceaccount.com

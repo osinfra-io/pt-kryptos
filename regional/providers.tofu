@@ -70,6 +70,13 @@ terraform {
   }
 }
 
+# Google Cloud Platform Provider
+# https://search.opentofu.org/provider/hashicorp/google/latest
+
+provider "google" {
+  region = module.core_helpers.region
+}
+
 # Helm Provider
 # https://search.opentofu.org/provider/hashicorp/helm/latest
 

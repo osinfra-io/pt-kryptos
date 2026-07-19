@@ -36,7 +36,6 @@ jobs:
       github_environment: "Production"
       opentofu_kms_encryption_key: projects/pt-corpus-tf16-prod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-prod
-      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: us-east1-b-production
       service_account: pt-kryptos-github@pt-corpus-tf16-prod.iam.gserviceaccount.com
@@ -55,7 +54,6 @@ jobs:
       github_environment: "Production"
       opentofu_kms_encryption_key: projects/pt-corpus-tf16-prod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-prod
-      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: us-east4-a-production
       service_account: pt-kryptos-github@pt-corpus-tf16-prod.iam.gserviceaccount.com

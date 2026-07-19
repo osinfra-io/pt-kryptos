@@ -10,11 +10,6 @@ variable "kubernetes_cluster_prefix" {
   default     = "pt-kryptos"
 }
 
-variable "kubernetes_cluster_project" {
-  description = "The GCP project ID of the kryptos platform-managed GCP project containing the GKE clusters provisioned by pt-pneuma"
-  type        = string
-}
-
 variable "openbao_version" {
   description = "The version of the OpenBao Helm chart to deploy"
   type        = string

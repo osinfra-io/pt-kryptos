@@ -30,7 +30,6 @@ jobs:
       github_environment: "Sandbox"
       opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-sb
-      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: us-east1-b-sandbox
       service_account: pt-kryptos-github@pt-corpus-tfc9-sb.iam.gserviceaccount.com
@@ -46,7 +45,6 @@ jobs:
       github_environment: "Sandbox"
       opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-sb
-      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: us-east4-a-sandbox
       service_account: pt-kryptos-github@pt-corpus-tfc9-sb.iam.gserviceaccount.com

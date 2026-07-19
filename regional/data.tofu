@@ -9,5 +9,12 @@ data "google_client_config" "this" {}
 data "google_container_cluster" "this" {
   location = module.core_helpers.region
   name     = "${var.kubernetes_cluster_prefix}-${module.core_helpers.region}-${module.core_helpers.zone}"
-  project  = var.kubernetes_cluster_project
+  project  = data.google_projects.platform_managed.projects[0].project_id
+}
+
+# Google Projects Data Source
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/data-sources/projects
+
+data "google_projects" "platform_managed" {
+  filter = "parent.id:${replace(module.core_helpers.environment_folder_id, "folders/", "")} labels.repository:pt-corpus labels.team:${module.core_helpers.team} labels.project-type:platform-managed lifecycleState:ACTIVE"
 }

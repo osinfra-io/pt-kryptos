@@ -4,7 +4,7 @@
 resource "helm_release" "openbao" {
   chart      = "openbao"
   name       = "openbao"
-  namespace  = "openbao"
+  namespace  = "pt-kryptos-openbao"
   repository = "https://openbao.github.io/openbao-helm"
 
   set = local.helm_set_values

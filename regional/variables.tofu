@@ -1,0 +1,37 @@
+# Input Variables
+# https://opentofu.org/docs/language/values/variables
+
+# These three state_* variables are required for early variable evaluation for backend and provider configuration.
+# They are defined in the GitHub Actions called workflows and should NOT be set in the OpenTofu configuration.
+
+variable "kubernetes_cluster_prefix" {
+  description = "The name prefix of the GKE cluster to deploy OpenBao into (e.g. pt-kryptos)"
+  type        = string
+  default     = "pt-kryptos"
+}
+
+variable "kubernetes_cluster_project" {
+  description = "The GCP project ID of the kryptos platform-managed GCP project containing the GKE clusters provisioned by pt-pneuma"
+  type        = string
+}
+
+variable "openbao_version" {
+  description = "The version of the OpenBao Helm chart to deploy"
+  type        = string
+  default     = "0.27.0"
+}
+
+variable "state_bucket" {
+  description = "The name of the GCS bucket to store state files"
+  type        = string
+}
+
+variable "state_kms_encryption_key" {
+  description = "The KMS encryption key for state and plan files"
+  type        = string
+}
+
+variable "state_prefix" {
+  description = "The prefix for state files in the GCS bucket"
+  type        = string
+}

@@ -1,0 +1,53 @@
+name: Non-Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+
+concurrency:
+  group: non-production
+  cancel-in-progress: false
+
+# For reusable workflows, the permissions setting for id-token should be set to write at the
+# caller workflow level or in the specific job that calls the reusable workflow.
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  us_east1_b:
+    name: "Regional: us-east1-b"
+    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
+    if: github.event.head_commit.author.username != 'dependabot[bot]'
+    with:
+      checkout_ref: ${{ github.ref }}
+      github_environment: "Non-Production"
+      opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_state_bucket: pt-kryptos-state-nonprod
+      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
+      opentofu_workspace: us-east1-b-non-production
+      service_account: pt-kryptos-github@pt-corpus-tf61-nonprod.iam.gserviceaccount.com
+      working_directory: regional
+      workload_identity_provider: projects/640681940147/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc
+
+  us_east4_a:
+    name: "Regional: us-east4-a"
+    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
+    if: github.event.head_commit.author.username != 'dependabot[bot]'
+    with:
+      checkout_ref: ${{ github.ref }}
+      github_environment: "Non-Production"
+      opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_state_bucket: pt-kryptos-state-nonprod
+      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
+      opentofu_workspace: us-east4-a-non-production
+      service_account: pt-kryptos-github@pt-corpus-tf61-nonprod.iam.gserviceaccount.com
+      working_directory: regional
+      workload_identity_provider: projects/640681940147/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc

@@ -1,0 +1,63 @@
+name: Production
+run-name: ${{ github.event.workflow_run.display_title || 'Production' }}
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Non-Production
+    types:
+      - completed
+    branches:
+      - main
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+# For reusable workflows, the permissions setting for id-token should be set to write at the
+# caller workflow level or in the specific job that calls the reusable workflow.
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+jobs:
+  us_east1_b:
+    name: "Regional: us-east1-b"
+    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_commit.author.name != 'dependabot[bot]')
+    with:
+      checkout_ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      github_environment: "Production"
+      opentofu_kms_encryption_key: projects/pt-corpus-tf16-prod/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_state_bucket: pt-kryptos-state-prod
+      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
+      opentofu_workspace: us-east1-b-production
+      service_account: pt-kryptos-github@pt-corpus-tf16-prod.iam.gserviceaccount.com
+      working_directory: regional
+      workload_identity_provider: projects/557265520053/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc
+
+  us_east4_a:
+    name: "Regional: us-east4-a"
+    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_commit.author.name != 'dependabot[bot]')
+    with:
+      checkout_ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      github_environment: "Production"
+      opentofu_kms_encryption_key: projects/pt-corpus-tf16-prod/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_state_bucket: pt-kryptos-state-prod
+      opentofu_var_json: "{\"kubernetes_cluster_project\": \"${{ vars.KUBERNETES_CLUSTER_PROJECT }}\"}"
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
+      opentofu_workspace: us-east4-a-production
+      service_account: pt-kryptos-github@pt-corpus-tf16-prod.iam.gserviceaccount.com
+      working_directory: regional
+      workload_identity_provider: projects/557265520053/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc

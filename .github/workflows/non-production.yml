@@ -20,32 +20,22 @@ permissions:
   id-token: write
 
 jobs:
-  us_east1_b:
-    name: "Regional: us-east1-b"
+  regional:
+    name: "Regional: ${{ matrix.zone }}"
     uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
     if: github.event.head_commit.author.username != 'dependabot[bot]'
+    strategy:
+      matrix:
+        include:
+          - zone: us-east1-b
+          - zone: us-east4-a
     with:
       checkout_ref: ${{ github.ref }}
-      github_environment: "Non-Production: us-east1-b"
+      github_environment: "Non-Production: ${{ matrix.zone }}"
       opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
       opentofu_state_bucket: pt-kryptos-state-nonprod
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
-      opentofu_workspace: us-east1-b-non-production
-      service_account: pt-kryptos-github@pt-corpus-tf61-nonprod.iam.gserviceaccount.com
-      working_directory: regional
-      workload_identity_provider: projects/640681940147/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc
-
-  us_east4_a:
-    name: "Regional: us-east4-a"
-    uses: osinfra-io/pt-techne-opentofu-workflows/.github/workflows/plan-and-apply.yml@66e04fe1c5a017238caf7be3d544a0a66b918dd1 # v0.5.5
-    if: github.event.head_commit.author.username != 'dependabot[bot]'
-    with:
-      checkout_ref: ${{ github.ref }}
-      github_environment: "Non-Production: us-east4-a"
-      opentofu_kms_encryption_key: projects/pt-corpus-tf61-nonprod/locations/us/keyRings/state-encryption/cryptoKeys/default
-      opentofu_state_bucket: pt-kryptos-state-nonprod
-      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
-      opentofu_workspace: us-east4-a-non-production
+      opentofu_workspace: ${{ matrix.zone }}-non-production
       service_account: pt-kryptos-github@pt-corpus-tf61-nonprod.iam.gserviceaccount.com
       working_directory: regional
       workload_identity_provider: projects/640681940147/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc

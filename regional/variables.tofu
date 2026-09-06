@@ -4,12 +4,6 @@
 # These three state_* variables are required for early variable evaluation for backend and provider configuration.
 # They are defined in the GitHub Actions called workflows and should NOT be set in the OpenTofu configuration.
 
-variable "kubernetes_cluster_prefix" {
-  description = "The name prefix of the GKE cluster to deploy OpenBao into (e.g. pt-kryptos)"
-  type        = string
-  default     = "pt-kryptos"
-}
-
 variable "openbao_version" {
   description = "The version of the OpenBao Helm chart to deploy"
   type        = string

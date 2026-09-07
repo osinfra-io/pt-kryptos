@@ -8,7 +8,7 @@ data "google_client_config" "this" {}
 
 data "google_container_cluster" "this" {
   location = module.core_helpers.region
-  name     = "${var.kubernetes_cluster_prefix}-${module.core_helpers.region}-${module.core_helpers.zone}"
+  name     = "pt-kryptos-${module.core_helpers.region}-${module.core_helpers.zone}"
   project  = data.google_projects.platform_managed.projects[0].project_id
 }
 

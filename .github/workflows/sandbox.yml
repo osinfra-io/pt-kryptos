@@ -34,6 +34,7 @@ jobs:
       checkout_ref: ${{ github.ref }}
       github_environment: "Sandbox: ${{ matrix.zone }}"
       opentofu_kms_encryption_key: projects/pt-corpus-tfc9-sb/locations/us/keyRings/state-encryption/cryptoKeys/default
+      opentofu_plan_args: -var-file=environments/sandbox.tfvars
       opentofu_state_bucket: pt-kryptos-state-sb
       opentofu_version: ${{ vars.OPENTOFU_VERSION }}
       opentofu_workspace: ${{ matrix.zone }}-sandbox

@@ -1,7 +1,7 @@
 # Local Values
 # https://opentofu.org/docs/language/values/locals
 #
-# Helm set values derived from OpenTofu context (labels, environment-specific overrides).
+# Helm set values derived from OpenTofu context and environment-specific variables.
 
 locals {
   helm_set_values = concat(
@@ -15,15 +15,6 @@ locals {
         value = "pt-kryptos"
       },
     ],
-    module.core_helpers.env == "sb" ? [
-      {
-        name  = "server.affinity"
-        value = ""
-      },
-      {
-        name  = "server.ha.enabled"
-        value = "false"
-      },
-    ] : []
+    var.openbao_helm_set_values,
   )
 }

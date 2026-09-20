@@ -4,6 +4,14 @@
 # These three state_* variables are required for early variable evaluation for backend and provider configuration.
 # They are defined in the GitHub Actions called workflows and should NOT be set in the OpenTofu configuration.
 
+variable "openbao_helm_set_values" {
+  description = "Environment-specific OpenBao Helm set values"
+  type = list(object({
+    name  = string
+    value = string
+  }))
+}
+
 variable "openbao_version" {
   description = "The version of the OpenBao Helm chart to deploy"
   type        = string

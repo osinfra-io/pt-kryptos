@@ -26,7 +26,7 @@ Links to documentation and other resources required to develop and iterate in th
 
 ## 🔄 Deployment Dependency Graph
 
-Sandbox runs for non-Markdown pull request changes and can also be dispatched manually; it applies only to sandbox environments using sandbox credentials. Non-production runs for non-Markdown changes merged to `main` and can also be dispatched manually. Production runs after non-production succeeds for automatic promotion, or by manual dispatch without a successful non-production run. Each environment deploys the `us-east1-b` and `us-east4-a` regional workspaces in parallel; pull-request runs do not have access to production or non-production credentials.
+Sandbox runs for non-Markdown pull request changes and can also be dispatched manually; it applies only to sandbox environments using sandbox credentials. Non-production runs for non-Markdown changes merged to `main` and can also be dispatched manually. Production runs after non-production succeeds for automatic promotion, or by manual dispatch without a successful non-production run. Automatic runs skip Dependabot changes (sandbox checks the triggering actor; non-production and production promotion check the commit author). Each environment deploys the `us-east1-b` and `us-east4-a` regional workspaces in parallel; pull-request runs do not have access to production or non-production credentials.
 
 ```mermaid
 flowchart LR

@@ -8,7 +8,7 @@ Kryptos owns the platform secrets service. It deploys [OpenBao](https://openbao.
 
 ## Consumer contract
 
-Kryptos consumes cluster runtime and connectivity from Pneuma and provides the foundation for approved OpenBao authentication, policy, and secret paths. It does not own GKE clusters, application deployment, or CI/CD workflows. Consumers must use platform-managed OpenBao identities and policies rather than storing static credentials in repositories or CI environments.
+Kryptos consumes cluster runtime and connectivity from Pneuma and provides the foundation for approved OpenBao authentication, policy, and secret paths. It does not own GKE clusters, application deployment, or the shared CI/CD infrastructure. This repository contains caller workflows that configure and trigger Kryptos infrastructure deployments through the shared reusable workflow. Consumers must use platform-managed OpenBao identities and policies rather than storing static credentials in repositories or CI environments.
 
 ### 🛠️ Tools
 
@@ -26,7 +26,7 @@ Links to documentation and other resources required to develop and iterate in th
 
 ## 🔄 Deployment Dependency Graph
 
-Sandbox runs for pull requests, non-production runs after merges to `main`, and production runs after non-production succeeds. Each environment deploys the `us-east1-b` and `us-east4-a` regional workspaces in parallel.
+Sandbox runs for pull requests and applies only to sandbox environments using sandbox credentials. Non-production runs after merges to `main`, and production runs after non-production succeeds for automatic promotion. Production can also run by manual dispatch without a successful non-production run. Each environment deploys the `us-east1-b` and `us-east4-a` regional workspaces in parallel; pull-request runs do not have access to production or non-production credentials.
 
 ```mermaid
 flowchart LR

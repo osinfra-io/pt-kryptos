@@ -2,9 +2,13 @@
 
 [![Dependabot](https://img.shields.io/github/actions/workflow/status/osinfra-io/pt-kryptos/dependabot.yml?style=for-the-badge&logo=github&color=2088FF&label=Dependabot)](https://github.com/osinfra-io/pt-kryptos/actions/workflows/dependabot.yml) [![Datadog Security Enabled](https://img.shields.io/badge/Datadog%20Security-Enabled-632CA6?style=for-the-badge&logo=datadog)](https://app.datadoghq.com/security/code-security/repositories?repository_id=pt-kryptos)
 
-## 📄 Repository Description
+## Purpose
 
-This repository contains the Infrastructure as Code (IaC) for the Kryptos domain — the hidden foundation of platform security. It manages secrets infrastructure by deploying and configuring [OpenBao](https://openbao.org) across GKE clusters in each deployment zone.
+Kryptos owns the platform secrets service. It deploys [OpenBao](https://openbao.org) as a Helm release in the `pt-kryptos-openbao` namespace on Pneuma-managed GKE clusters.
+
+## Consumer contract
+
+Kryptos consumes cluster runtime and connectivity from Pneuma and provides the foundation for approved OpenBao authentication, policy, and secret paths. It does not own GKE clusters, application deployment, or the shared CI/CD infrastructure. This repository contains caller workflows that configure and trigger Kryptos infrastructure deployments through the shared reusable workflow. Consumers must use platform-managed OpenBao identities and policies rather than storing static credentials in repositories or CI environments.
 
 ### 🛠️ Tools
 
@@ -22,7 +26,7 @@ Links to documentation and other resources required to develop and iterate in th
 
 ## 🔄 Deployment Dependency Graph
 
-Each workflow (sandbox, non-production, production) deploys two zone workspaces in parallel.
+Sandbox runs for non-Markdown pull request changes and can also be dispatched manually; it applies only to sandbox environments using sandbox credentials. Non-production runs for non-Markdown changes merged to `main` and can also be dispatched manually. Production runs after non-production succeeds for automatic promotion, or by manual dispatch without a successful non-production run. Automatic runs skip Dependabot changes (sandbox checks the triggering actor; non-production and production promotion check the commit author). Each environment deploys the `us-east1-b` and `us-east4-a` regional workspaces in parallel; pull-request runs do not have access to production or non-production credentials.
 
 ```mermaid
 flowchart LR
